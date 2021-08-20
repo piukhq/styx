@@ -1,18 +1,19 @@
-from azure.keyvault.secrets import SecretClient
-from azure.identity import DefaultAzureCredential
-from io import StringIO
 import json
-import paramiko
 import logging
+from io import StringIO
 
-logging.getLogger('azure.identity').setLevel(logging.ERROR)
+import paramiko
+from azure.identity import DefaultAzureCredential
+from azure.keyvault.secrets import SecretClient
+
+logging.getLogger("azure.identity").setLevel(logging.ERROR)
 
 
 def get_sftp_key() -> str:
     vault_url = "https://bink-uksouth-prod-com.vault.azure.net/"
     vault_credential = DefaultAzureCredential()
     vault_client = SecretClient(vault_url=vault_url, credential=vault_credential)
-    key = json.loads(vault_client.get_secret('mastercard-sftp').value)['key']
+    key = json.loads(vault_client.get_secret("mastercard-sftp").value)["key"]
     return StringIO(key)
 
 
