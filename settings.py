@@ -1,3 +1,7 @@
+from os import getenv
+
+mode = getenv("MODE")
+
 config = {
     "TGX4": {
         "sftp_host": "mtf.files.mastercard.com",

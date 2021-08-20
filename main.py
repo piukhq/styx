@@ -9,7 +9,7 @@ from azure.storage.blob import BlobServiceClient
 
 logging.getLogger("azure.identity").setLevel(logging.ERROR)
 
-from settings import config
+from settings import mode, config
 
 
 def get_sftp_key() -> StringIO:
@@ -41,7 +41,7 @@ def upload_blob(container: str, filename: str, data: BytesIO) -> None:
     blob.upload_blob(data)
 
 
-def run(mode: str) -> None:
+def run() -> None:
     sftp_host = config[mode]["sftp_host"]
     sftp_port = config[mode]["sftp_port"]
     sftp_user = config[mode]["sftp_user"]
@@ -58,3 +58,7 @@ def run(mode: str) -> None:
         except Exception:
             with open(f"/tmp/{i}", "wb") as f:
                 f.write(data)
+
+
+if __name__ == "__main__":
+    run()
