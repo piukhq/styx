@@ -35,13 +35,13 @@ def sftp_client(host: str, port: int, username: str) -> paramiko.SFTPClient:
     return ssh.open_sftp()
 
 
-def upload_blob(container: str, filename: str, data: BytesIO):
+def upload_blob(container: str, filename: str, data: BytesIO) -> None:
     client = BlobServiceClient.from_connection_string(get_storage_key())
     blob = client.get_blob_client(container=container, blob=filename)
     blob.upload_blob(data)
 
 
-def run(mode: str):
+def run(mode: str) -> None:
     sftp_host = config[mode]["sftp_host"]
     sftp_port = config[mode]["sftp_port"]
     sftp_user = config[mode]["sftp_user"]
