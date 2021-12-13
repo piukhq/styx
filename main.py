@@ -104,3 +104,4 @@ def run() -> None:
 if __name__ == "__main__":
     scheduler = BlockingScheduler()
     scheduler.add_job(run, trigger=CronTrigger.from_crontab("0 * * * *"))
+    scheduler.start()
