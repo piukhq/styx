@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+paramiko = "*"
+azure-storage-blob = "*"
+apscheduler = "*"
+azure-keyvault-secrets = "*"
+azure-identity = "*"
+python-json-logger = "*"
+pydantic = "*"
+redis = "*"
+
+[dev-packages]
+black = "==21.12b0"
+flake8 = "*"
+ptpython = "*"
+isort = "*"
+
+[requires]
+python_version = "3.9"

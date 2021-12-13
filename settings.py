@@ -1,6 +1,15 @@
-from os import getenv
+from pydantic import BaseSettings
 
-mode = getenv("MODE")
+
+class Settings(BaseSettings):
+    mode: str = "TS44"
+    vault_url_storage: str = "https://bink-uksouth-prod-inf.vault.azure.net/"
+    vault_url_sftp: str = "https://bink-uksouth-prod-com.vault.azure.net/"
+    leader_election_enabled: bool = True
+    redis_url: str
+
+
+settings = Settings()
 
 config = {
     "TGX4": {
