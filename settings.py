@@ -1,3 +1,5 @@
+from typing import Optional
+
 from pydantic import BaseSettings
 
 
@@ -6,7 +8,7 @@ class Settings(BaseSettings):
     vault_url_storage: str = "https://bink-uksouth-prod-inf.vault.azure.net/"
     vault_url_sftp: str = "https://bink-uksouth-prod-com.vault.azure.net/"
     leader_election_enabled: bool = True
-    redis_url: str
+    redis_url: Optional[str]
 
 
 settings = Settings()

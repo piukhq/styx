@@ -43,6 +43,7 @@ def is_leader():
                 pass
     else:
         is_leader = True
+    logging.warning(msg="Leader Election", extra={"status": is_leader})
     return is_leader
 
 
@@ -94,9 +95,12 @@ def run() -> None:
             s.getfo(f"{sftp_dir}/{i}", data)
             data.seek(0)
             try:
-                logging.warning(msg="Uploading Blob", extra={"filename": i, "container": blob_container})
+                logging.warning(
+                    msg="Uploading Blob", extra={"filename": i, "container": blob_container, "length": len(data)}
+                )
                 upload_blob(container=blob_container, filename=f"{blob_dir}/{i}", data=data)
             except Exception:
+                data.seek(0)
                 with open(f"/tmp/{i}", "wb") as f:
                     f.write(data)
 
