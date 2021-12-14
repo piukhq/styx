@@ -95,9 +95,7 @@ def run() -> None:
             s.getfo(f"{sftp_dir}/{i}", data)
             data.seek(0)
             try:
-                logging.warning(
-                    msg="Uploading Blob", extra={"filename": i, "container": blob_container, "length": len(data)}
-                )
+                logging.warning(msg="Uploading Blob", extra={"file_name": i, "container": blob_container})
                 upload_blob(container=blob_container, filename=f"{blob_dir}/{i}", data=data)
             except Exception:
                 data.seek(0)
