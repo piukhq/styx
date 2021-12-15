@@ -94,13 +94,8 @@ def run() -> None:
             data = BytesIO()
             s.getfo(f"{sftp_dir}/{i}", data)
             data.seek(0)
-            try:
-                logging.warning(msg="Uploading Blob", extra={"file_name": i, "container": blob_container})
-                upload_blob(container=blob_container, filename=f"{blob_dir}/{i}", data=data)
-            except Exception:
-                data.seek(0)
-                with open(f"/tmp/{i}", "wb") as f:
-                    f.write(data)
+            logging.warning(msg="Uploading Blob", extra={"file_name": i, "container": blob_container})
+            upload_blob(container=blob_container, filename=f"{blob_dir}/{i}", data=data)
 
 
 if __name__ == "__main__":
