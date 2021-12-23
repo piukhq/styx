@@ -28,7 +28,7 @@ config = {
         "sftp_user": "Z216458",
         "sftp_dir": "/0073185/production/download/TGX2",
         "blob_container": "harmonia-imports",
-        "blob_dir": "test/mastercard-settlement",
+        "blob_dir": "mastercard",
     },
     "TS44": {
         "sftp_host": "files.mastercard.com",
