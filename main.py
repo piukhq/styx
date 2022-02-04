@@ -26,7 +26,7 @@ from settings import config, settings
 def is_leader():
     if settings.leader_election_enabled:
         r = redis.Redis.from_url(settings.redis_url)
-        lock_key = "styx"
+        lock_key = f"styx-{settings.mode}"
         hostname = socket.gethostname()
         is_leader = False
 
