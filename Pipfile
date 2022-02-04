@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-paramiko = "*"
+paramiko = "==2.8.1"
 azure-storage-blob = "*"
 apscheduler = "*"
 azure-keyvault-secrets = "*"
