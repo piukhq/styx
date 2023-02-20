@@ -1,5 +1,4 @@
 import json
-import logging
 import socket
 from io import BytesIO, StringIO
 
@@ -10,15 +9,7 @@ from apscheduler.triggers.cron import CronTrigger
 from azure.identity import DefaultAzureCredential
 from azure.keyvault.secrets import SecretClient
 from azure.storage.blob import BlobServiceClient
-from pythonjsonlogger import jsonlogger
-
-logging.getLogger("azure.identity").setLevel(logging.ERROR)
-logger = logging.getLogger()
-logHandler = logging.StreamHandler()
-logFmt = jsonlogger.JsonFormatter(timestamp=True)
-logHandler.setFormatter(logFmt)
-logger.addHandler(logHandler)
-
+from loguru import logger
 
 from settings import config, settings
 
@@ -43,7 +34,7 @@ def is_leader():
                 pass
     else:
         is_leader = True
-    logging.warning(msg="Leader Election", extra={"status": is_leader})
+    logger.warning(f"Leader: {is_leader}")
     return is_leader
 
 
@@ -66,7 +57,9 @@ def sftp_client(host: str, port: int, username: str) -> paramiko.SFTPClient:
     ssh = paramiko.SSHClient()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     key = paramiko.RSAKey.from_private_key(get_sftp_key())
-    ssh.connect(host, port=port, username=username, pkey=key)
+    ssh.connect(
+        host, port=port, username=username, pkey=key, disabled_algorithms={"pubkeys": ["rsa-sha2-256", "rsa-sha2-512"]}
+    )
     return ssh.open_sftp()
 
 
@@ -85,16 +78,15 @@ def run() -> None:
         sftp_dir = config[mode]["sftp_dir"]
         blob_container = config[mode]["blob_container"]
         blob_dir = config[mode]["blob_dir"]
-        logging.warning(
-            msg="Connecting to SFTP",
-            extra={"host": sftp_host, "port": sftp_port, "user": sftp_user, "directory": sftp_dir},
+        logger.warning(
+            f"Connecting to SFTP 'host': {sftp_host}, 'port': {sftp_port}, 'user': {sftp_user}, 'dir': {sftp_dir}"
         )
         s = sftp_client(host=sftp_host, port=sftp_port, username=sftp_user)
         for i in s.listdir(sftp_dir):
             data = BytesIO()
             s.getfo(f"{sftp_dir}/{i}", data)
             data.seek(0)
-            logging.warning(msg="Uploading Blob", extra={"file_name": i, "container": blob_container})
+            logger.warning(f"Uploading Blob 'file_name': {i}, 'container': {blob_container}")
             upload_blob(container=blob_container, filename=f"{blob_dir}/{i}", data=data)
 
 

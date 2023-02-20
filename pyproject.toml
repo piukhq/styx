@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "styx"
+version = "0.0.0"
+description = "Downloads files from Mastercard and uploads then to Azure Blob Storage"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+paramiko = "^3.0.0"
+azure-storage-blob = "^12.14.1"
+apscheduler = "^3.10.0"
+azure-keyvault-secrets = "^4.6.0"
+azure-identity = "^1.12.0"
+pydantic = "^1.10.5"
+redis = "^4.5.1"
+loguru = "^0.6.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.0.249"
+isort = "^5.12.0"
+black = "^23.1.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+line_length = 120
+profile = "black"
+
+[tool.ruff]
+line-length = 120
