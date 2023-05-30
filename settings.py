@@ -1,14 +1,10 @@
-from typing import Optional
-
 from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
     mode: str = "TS44"
-    vault_url_storage: str = "https://bink-uksouth-prod-inf.vault.azure.net/"
-    vault_url_sftp: str = "https://bink-uksouth-prod-com.vault.azure.net/"
-    leader_election_enabled: bool = True
-    redis_url: Optional[str]
+    vault_url: str = "https://uksouth-prod-qj46.vault.azure.net/"
+    storage_connection_string: str
 
 
 settings = Settings()
