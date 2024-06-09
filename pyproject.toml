@@ -7,7 +7,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-paramiko = "^3.0.0"
+paramiko = "^3.4.0"
 azure-storage-blob = "^12.14.1"
 apscheduler = "^3.10.0"
 azure-keyvault-secrets = "^4.6.0"
